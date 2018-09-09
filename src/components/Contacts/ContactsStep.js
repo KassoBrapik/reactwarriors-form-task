@@ -1,7 +1,38 @@
 import React, { Component } from "react";
+import countries from "../../data/countries";
+import cities from "../../data/cities";
 
 export default class ContactsStep extends Component {
+  getOptionsCities = () => {
+    const options = [
+      {
+        id: "",
+        name: "Выберите город"
+      }
+    ];
+    for (let key in cities) {
+      if (cities[key].country === Number(this.props.country))
+        options.push({
+          id: key,
+          name: cities[key].name
+        });
+    }
+
+    return options.map(item => {
+      return (
+        <option value={item.id} key={item.id}>
+          {item.name}
+        </option>
+      );
+    });
+  };
+
   render() {
+    // console.log(countries);
+    // console.log(this.props);
+    // console.log(cities["8"]);
+    console.log(this.props.country);
+    console.log(this.getOptionsCities());
     return (
       <div>
         <div className="form-group">
@@ -29,15 +60,28 @@ export default class ContactsStep extends Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="">Country</label>
-          <select>
-            <option>1</option>
+          <label htmlFor="country">Country</label>
+          <select
+            className="form-control"
+            id="country"
+            name="country"
+            onChange={this.props.onChangeValue}
+          >
+            {/* {this.props.getOptions(countries)} */}
+            {countries.map(country => {
+              return (
+                <option value={country.id} key={country.id}>
+                  {country.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="">City</label>
-          <select>
-            <option>1</option>
+          <label htmlFor="cities">City</label>
+          <select className="form-control" id="cities" name="cities">
+            {/* {this.props.getOptions(cities)} */}
+            {this.getOptionsCities()}
           </select>
         </div>
       </div>

@@ -14,7 +14,7 @@ export default class App extends React.Component {
     gender: "",
     email: "",
     mobile: "",
-    country: "",
+    country: 1,
     city: "",
     avatar: null,
     isActiveStep: 0
@@ -61,7 +61,11 @@ export default class App extends React.Component {
           ) : null}
           {/* ---------------email, mobile, country, city block---------------------- */}
           {this.state.isActiveStep === 1 ? (
-            <ContactsStep {...this.state} onChangeValue={this.onChangeValue} />
+            <ContactsStep
+              {...this.state}
+              onChangeValue={this.onChangeValue}
+              getOptions={this.getOptions}
+            />
           ) : null}
           {/* ----------------Avatar block---------------------- */}
           {this.state.isActiveStep === 2 ? (
