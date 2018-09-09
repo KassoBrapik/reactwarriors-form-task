@@ -1,5 +1,5 @@
 body {
-  background: #fdfdfd; 
+  background: #fdfdfd;
 }
 
 .form-container {
@@ -7,9 +7,24 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 460px; 
+  width: 460px;
 }
 
 .invalid-feedback {
-  display: block; 
+  display: block;
+}
+
+.nav-link {
+  min-width: 95px;
+  text-align: center;
+  box-shadow: -1px 5px 10px -6px rgba(0, 0, 0, 0.2);
+}
+.nav-link:hover,
+.nav-link.active {
+  border: 1px solid rgba(0, 0, 0, 0.25) !important;
+}
+
+.form-control::placeholder {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.35);
 }
