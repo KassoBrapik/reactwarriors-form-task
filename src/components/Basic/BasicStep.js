@@ -59,8 +59,11 @@ export default class BasicStep extends Component {
           <input
             className="form-check-input"
             type="radio"
-            name="male"
+            name="gender"
             id="male"
+            value="male"
+            onChange={this.props.onChangeValue}
+            checked={this.props.gender === "male"}
           />
           <label className="form-check-label" htmlFor="male">
             Male
@@ -70,8 +73,11 @@ export default class BasicStep extends Component {
           <input
             className="form-check-input"
             type="radio"
-            name="female"
+            name="gender"
             id="female"
+            value="female"
+            onChange={this.props.onChangeValue}
+            checked={this.props.gender === "female"}
           />
           <label className="form-check-label" htmlFor="female">
             Female

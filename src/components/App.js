@@ -27,6 +27,18 @@ export default class App extends React.Component {
     });
   };
 
+  onChangeAvatar = event => {
+    const reader = new FileReader();
+    reader.onload = event => {
+      this.setState({
+        avatar: event.target.result
+      });
+      // console.log(event.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    // console.log(event.target.files[0]);
+  };
+
   handleNextStep = () => {
     this.setState(prevState => ({ isActiveStep: prevState.isActiveStep + 1 }));
   };
@@ -57,7 +69,11 @@ export default class App extends React.Component {
           </ul>
           {/* --------------firstName, LastName, password, repeat password block-------------- */}
           {this.state.isActiveStep === 0 ? (
-            <BasicStep {...this.state} onChangeValue={this.onChangeValue} />
+            <BasicStep
+              {...this.state}
+              onChangeValue={this.onChangeValue}
+              onChangeAgree={this.onChangeAgree}
+            />
           ) : null}
           {/* ---------------email, mobile, country, city block---------------------- */}
           {this.state.isActiveStep === 1 ? (
@@ -69,12 +85,12 @@ export default class App extends React.Component {
           ) : null}
           {/* ----------------Avatar block---------------------- */}
           {this.state.isActiveStep === 2 ? (
-            <AvatarStep {...this.state} />
+            <AvatarStep {...this.state} onChangeAvatar={this.onChangeAvatar} />
           ) : null}
           {/* ---------------Final block--------------------- */}
           {this.state.isActiveStep === 3 ? <FinalStep /> : null}
           {/* buttons block */}
-          <div className="btn-group justify-content-center w-100 mt-3">
+          <div className="btn-group justify-content-center w-100">
             <button
               type="button"
               className="btn btn-secondary mr-3"

@@ -31,8 +31,8 @@ export default class ContactsStep extends Component {
     // console.log(countries);
     // console.log(this.props);
     // console.log(cities["8"]);
-    console.log(this.props.country);
-    console.log(this.getOptionsCities());
+    // console.log(this.props.country);
+    // console.log(this.getOptionsCities());
     return (
       <div>
         <div className="form-group">
