@@ -1,4 +1,9 @@
 import React from "react";
+import BasicStep from "./Basic/BasicStep";
+import ContactsStep from "./Contacts/ContactsStep";
+import AvatarStep from "./Avatar/AvatarStep";
+import FinalStep from "./Final/FinalStep";
+// import classNames from "classnames";
 
 export default class App extends React.Component {
   state = {
@@ -6,7 +11,13 @@ export default class App extends React.Component {
     lastName: "",
     password: "",
     repeatPassword: "",
-    gender: ""
+    gender: "",
+    email: "",
+    mobile: "",
+    country: "",
+    city: "",
+    avatar: null,
+    isActiveStep: 0
   };
 
   onChangeValue = event => {
@@ -16,12 +27,20 @@ export default class App extends React.Component {
     });
   };
 
+  handleNextStep = () => {
+    this.setState(prevState => ({ isActiveStep: prevState.isActiveStep + 1 }));
+  };
+  handlePrevStep = () => {
+    this.setState(prevState => ({ isActiveStep: prevState.isActiveStep - 1 }));
+  };
+
   render() {
-    console.log(this.state);
+    // console.log("App state", this.state);
 
     return (
       <div className="form-container card shadow-sm">
         <form className="form card-body">
+          {/* --------------Nav block-------------- */}
           <ul className="nav nav-tabs mb-5 mt-2 border-bottom-0 justify-content-center">
             <li className="nav-item mr-2">
               <a className="nav-link rounded">Basic</a>
@@ -36,87 +55,36 @@ export default class App extends React.Component {
               <a className="nav-link rounded">Finish</a>
             </li>
           </ul>
-          {/* email, password, repeat password block */}
-          <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              name="firstName"
-              value={this.state.firstName}
-              placeholder="Enter First Name"
-              onChange={this.onChangeValue}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              name="lastName"
-              value={this.state.lastName}
-              placeholder="Enter Last Name"
-              onChange={this.onChangeValue}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={this.state.password}
-              placeholder="Password"
-              onChange={this.onChangeValue}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="repeatPassword">Repeat password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="repeatPassword"
-              name="repeatPassword"
-              value={this.state.repeatPassword}
-              placeholder="Repeat password"
-              onChange={this.onChangeValue}
-            />
-          </div>
-          {/* gender check block */}
-          <div>Gender</div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="male"
-              id="male"
-              value="option1"
-              checked
-            />
-            <label className="form-check-label" for="male">
-              Male
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="female"
-              id="female"
-              value="option2"
-            />
-            <label className="form-check-label" for="female">
-              Female
-            </label>
-          </div>
-          <div className="btn-group justify-content-center w-100" role="group">
-            <button type="button" className="btn btn-secondary mr-3">
+          {/* --------------firstName, LastName, password, repeat password block-------------- */}
+          {this.state.isActiveStep === 0 ? (
+            <BasicStep {...this.state} onChangeValue={this.onChangeValue} />
+          ) : null}
+          {/* ---------------email, mobile, country, city block---------------------- */}
+          {this.state.isActiveStep === 1 ? (
+            <ContactsStep {...this.state} onChangeValue={this.onChangeValue} />
+          ) : null}
+          {/* ----------------Avatar block---------------------- */}
+          {this.state.isActiveStep === 2 ? (
+            <AvatarStep {...this.state} />
+          ) : null}
+          {/* ---------------Final block--------------------- */}
+          {this.state.isActiveStep === 3 ? <FinalStep /> : null}
+          {/* buttons block */}
+          <div className="btn-group justify-content-center w-100 mt-3">
+            <button
+              type="button"
+              className="btn btn-secondary mr-3"
+              disabled={this.state.isActiveStep === 0}
+              onClick={this.handlePrevStep}
+            >
               Prev
             </button>
-            <button type="button" className="btn btn-secondary">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={this.handleNextStep}
+              disabled={this.state.isActiveStep === 3}
+            >
               Next
             </button>
           </div>

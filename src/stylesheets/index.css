@@ -28,3 +28,7 @@ body {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.35);
 }
+
+.form-check-label {
+  font-size: 12px;
+}
