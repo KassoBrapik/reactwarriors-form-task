@@ -15,11 +15,11 @@ export default class AvatarStep extends Component {
       };
       return imgAvatar;
     } else {
-      let a = this.props.avatar;
+      let downloadAvatar = this.props.avatar;
       const imgAvatar2 = {
         width: "350px",
         height: "350px",
-        backgroundImage: `url(${a})`,
+        backgroundImage: `url(${downloadAvatar})`,
         margin: "auto",
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",

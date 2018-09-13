@@ -3,6 +3,7 @@ import BasicStep from "./Basic/BasicStep";
 import ContactsStep from "./Contacts/ContactsStep";
 import AvatarStep from "./Avatar/AvatarStep";
 import FinalStep from "./Final/FinalStep";
+import validate from "./Validate";
 // import classNames from "classnames";
 
 export default class App extends React.Component {
@@ -15,7 +16,7 @@ export default class App extends React.Component {
     email: "",
     mobile: "",
     country: 1,
-    city: "",
+    cities: "",
     avatar: null,
     isActiveStep: 0
   };
@@ -40,20 +41,34 @@ export default class App extends React.Component {
   };
 
   handleNextStep = () => {
-    this.setState(prevState => ({ isActiveStep: prevState.isActiveStep + 1 }));
+    const errorsForValidation = validate(this.state);
+    // console.log(errorsForValidation);
+
+    if (Object.keys(errorsForValidation).length > 0) {
+      this.setState(prevState => ({
+        errors: errorsForValidation,
+        isActiveStep: prevState.isActiveStep
+      }));
+    } else {
+      this.setState(prevState => ({
+        isActiveStep: prevState.isActiveStep + 1
+      }));
+    }
   };
+
   handlePrevStep = () => {
-    this.setState(prevState => ({ isActiveStep: prevState.isActiveStep - 1 }));
+    this.setState(prevState => ({
+      isActiveStep: prevState.isActiveStep - 1
+    }));
   };
 
   render() {
     // console.log("App state", this.state);
-
     return (
       <div className="form-container card shadow-sm">
         <form className="form card-body">
-          {/* --------------Nav block-------------- */}
-          <ul className="nav nav-tabs mb-5 mt-2 border-bottom-0 justify-content-center">
+          {/* -------------------Nav block--------------------- */}
+          <ul className="nav nav-tabs mb-3 mt-2 border-bottom-0 justify-content-center">
             <li className="nav-item mr-2">
               <a className="nav-link rounded">Basic</a>
             </li>
@@ -67,7 +82,8 @@ export default class App extends React.Component {
               <a className="nav-link rounded">Finish</a>
             </li>
           </ul>
-          {/* --------------firstName, LastName, password, repeat password block-------------- */}
+          {/* --------------firstName, LastName, password,---------
+          ------------------repeat password block---------------- */}
           {this.state.isActiveStep === 0 ? (
             <BasicStep
               {...this.state}
@@ -75,7 +91,8 @@ export default class App extends React.Component {
               onChangeAgree={this.onChangeAgree}
             />
           ) : null}
-          {/* ---------------email, mobile, country, city block---------------------- */}
+          {/* ---------------email, mobile,------------------------ 
+          -------------------country, city block----------------- */}
           {this.state.isActiveStep === 1 ? (
             <ContactsStep
               {...this.state}
@@ -87,7 +104,7 @@ export default class App extends React.Component {
           {this.state.isActiveStep === 2 ? (
             <AvatarStep {...this.state} onChangeAvatar={this.onChangeAvatar} />
           ) : null}
-          {/* ---------------Final block--------------------- */}
+          {/* -----------------Final block---------------------- */}
           {this.state.isActiveStep === 3 ? <FinalStep /> : null}
           {/* buttons block */}
           <div className="btn-group justify-content-center w-100">

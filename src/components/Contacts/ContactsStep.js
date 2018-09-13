@@ -46,6 +46,9 @@ export default class ContactsStep extends Component {
             placeholder="Enter your email"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">{this.props.errors.email}</div>
+          ) : null}
         </div>
         <div className="form-group">
           <label htmlFor="mobile">Mobile</label>
@@ -58,6 +61,9 @@ export default class ContactsStep extends Component {
             placeholder="Enter number mobile"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">{this.props.errors.mobile}</div>
+          ) : null}
         </div>
         <div className="form-group">
           <label htmlFor="country">Country</label>
@@ -67,7 +73,6 @@ export default class ContactsStep extends Component {
             name="country"
             onChange={this.props.onChangeValue}
           >
-            {/* {this.props.getOptions(countries)} */}
             {countries.map(country => {
               return (
                 <option value={country.id} key={country.id}>
@@ -79,10 +84,17 @@ export default class ContactsStep extends Component {
         </div>
         <div className="form-group">
           <label htmlFor="cities">City</label>
-          <select className="form-control" id="cities" name="cities">
-            {/* {this.props.getOptions(cities)} */}
+          <select
+            className="form-control"
+            id="cities"
+            name="cities"
+            onChange={this.props.onChangeValue}
+          >
             {this.getOptionsCities()}
           </select>
+          {this.props.errors ? (
+            <div className="invalid-feedback">{this.props.errors.cities}</div>
+          ) : null}
         </div>
       </div>
     );

@@ -16,6 +16,11 @@ export default class BasicStep extends Component {
             placeholder="Enter First Name"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">
+              {this.props.errors.firstName}
+            </div>
+          ) : null}
         </div>
         <div className="form-group">
           <label htmlFor="lastName">Last Name</label>
@@ -28,6 +33,9 @@ export default class BasicStep extends Component {
             placeholder="Enter Last Name"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">{this.props.errors.lastName}</div>
+          ) : null}
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
@@ -40,6 +48,9 @@ export default class BasicStep extends Component {
             placeholder="Password"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">{this.props.errors.password}</div>
+          ) : null}
         </div>
         <div className="form-group">
           <label htmlFor="repeatPassword">Repeat password</label>
@@ -52,37 +63,47 @@ export default class BasicStep extends Component {
             placeholder="Repeat password"
             onChange={this.props.onChangeValue}
           />
+          {this.props.errors ? (
+            <div className="invalid-feedback">
+              {this.props.errors.repeatPassword}
+            </div>
+          ) : null}
         </div>
         {/* gender check block */}
-        <div>Gender</div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="gender"
-            id="male"
-            value="male"
-            onChange={this.props.onChangeValue}
-            checked={this.props.gender === "male"}
-          />
-          <label className="form-check-label" htmlFor="male">
-            Male
-          </label>
+        <div>
+          Gender
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="gender"
+              id="male"
+              value="male"
+              onChange={this.props.onChangeValue}
+              checked={this.props.gender === "male"}
+            />
+            <label className="form-check-label" htmlFor="male">
+              Male
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="gender"
+              id="female"
+              value="female"
+              onChange={this.props.onChangeValue}
+              checked={this.props.gender === "female"}
+            />
+            <label className="form-check-label" htmlFor="female">
+              Female
+            </label>
+          </div>
         </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="gender"
-            id="female"
-            value="female"
-            onChange={this.props.onChangeValue}
-            checked={this.props.gender === "female"}
-          />
-          <label className="form-check-label" htmlFor="female">
-            Female
-          </label>
-        </div>
+        {this.props.errors ? (
+          <div className="invalid-feedback">{this.props.errors.gender}</div>
+        ) : null}
       </div>
     );
   }
