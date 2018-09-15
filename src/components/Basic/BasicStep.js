@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class BasicStep extends Component {
   render() {
-    // console.log("properties into BasicStep", this.props);
+    console.log("properties into BasicStep", this.props);
     return (
       <div>
         <div className="form-group">
@@ -12,9 +12,9 @@ export default class BasicStep extends Component {
             className="form-control"
             id="firstName"
             name="firstName"
-            value={this.props.firstName}
+            value={this.props.values.firstName}
             placeholder="Enter First Name"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">
@@ -29,9 +29,9 @@ export default class BasicStep extends Component {
             className="form-control"
             id="lastName"
             name="lastName"
-            value={this.props.lastName}
+            value={this.props.values.lastName}
             placeholder="Enter Last Name"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">{this.props.errors.lastName}</div>
@@ -44,9 +44,9 @@ export default class BasicStep extends Component {
             className="form-control"
             id="password"
             name="password"
-            value={this.props.password}
+            value={this.props.values.password}
             placeholder="Password"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">{this.props.errors.password}</div>
@@ -59,9 +59,9 @@ export default class BasicStep extends Component {
             className="form-control"
             id="repeatPassword"
             name="repeatPassword"
-            value={this.props.repeatPassword}
+            value={this.props.values.repeatPassword}
             placeholder="Repeat password"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">
@@ -79,8 +79,8 @@ export default class BasicStep extends Component {
               name="gender"
               id="male"
               value="male"
-              onChange={this.props.onChangeValue}
-              checked={this.props.gender === "male"}
+              onChange={this.props.handleChangeValue}
+              checked={this.props.values.gender === "male"}
             />
             <label className="form-check-label" htmlFor="male">
               Male
@@ -93,8 +93,8 @@ export default class BasicStep extends Component {
               name="gender"
               id="female"
               value="female"
-              onChange={this.props.onChangeValue}
-              checked={this.props.gender === "female"}
+              onChange={this.props.handleChangeValue}
+              checked={this.props.values.gender === "female"}
             />
             <label className="form-check-label" htmlFor="female">
               Female

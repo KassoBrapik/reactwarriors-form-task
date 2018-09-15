@@ -1,34 +1,7 @@
 import React, { Component } from "react";
-import Avatar from "../../images/default-avatar.png";
+import DefaultAvatar from "../../images/default-avatar.png";
 
 export default class AvatarStep extends Component {
-  styleImg = () => {
-    if (this.props.avatar === null) {
-      const imgAvatar = {
-        width: "350px",
-        height: "350px",
-        backgroundImage: `url(${Avatar})`,
-        backgroundRepeat: "no-repeat",
-        margin: "auto",
-        backgroundSize: "100%",
-        backgroundPosition: `center, center`
-      };
-      return imgAvatar;
-    } else {
-      let downloadAvatar = this.props.avatar;
-      const imgAvatar2 = {
-        width: "350px",
-        height: "350px",
-        backgroundImage: `url(${downloadAvatar})`,
-        margin: "auto",
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: `center, center`
-      };
-      return imgAvatar2;
-    }
-  };
-
   render() {
     // console.log(this.styleImg());
     return (
@@ -37,7 +10,14 @@ export default class AvatarStep extends Component {
           width="100%"
           src={this.props.avatar === null ? Avatar : this.props.avatar}
         /> */}
-        <div className="avatar_pic mb-3" style={this.styleImg()} />
+        <div
+          className="avatar_preview mb-3"
+          style={{
+            backgroundImage: `url(${
+              this.props.avatar ? this.props.avatar : DefaultAvatar
+            })`
+          }}
+        />
         <div className="custom-file">
           <label className="custom-file-label" htmlFor="avatar">
             Avatar
@@ -47,7 +27,7 @@ export default class AvatarStep extends Component {
             className="custom-file-input"
             id="avatar"
             name="avatar"
-            onChange={this.props.onChangeAvatar}
+            onChange={this.props.handleChangeAvatar}
           />
         </div>
       </div>

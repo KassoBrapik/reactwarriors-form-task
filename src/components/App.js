@@ -1,4 +1,5 @@
 import React from "react";
+import Steps from "./Steps/Steps";
 import BasicStep from "./Basic/BasicStep";
 import ContactsStep from "./Contacts/ContactsStep";
 import AvatarStep from "./Avatar/AvatarStep";
@@ -9,6 +10,28 @@ import validate from "./Validate";
 export default class App extends React.Component {
   state = {
     isActiveStep: 0,
+    steps: [
+      {
+        name: "Basic",
+        isActive: true,
+        isCompleted: false
+      },
+      {
+        name: "Contacts",
+        isActive: false,
+        isCompleted: false
+      },
+      {
+        name: "Avatar",
+        isActive: false,
+        isCompleted: false
+      },
+      {
+        name: "Finish",
+        isActive: false,
+        isCompleted: false
+      }
+    ],
     values: {
       firstName: "",
       lastName: "",
@@ -20,10 +43,11 @@ export default class App extends React.Component {
       country: 1,
       cities: "",
       avatar: null
-    }
+    },
+    error: {}
   };
 
-  onChangeValue = event => {
+  handleChangeValue = event => {
     const name = event.target.name;
     const value = event.target.value;
     this.setState(prevState => ({
@@ -36,12 +60,16 @@ export default class App extends React.Component {
     // console.log("value", value);
   };
 
-  onChangeAvatar = event => {
+  handleChangeAvatar = event => {
     const reader = new FileReader();
     reader.onload = event => {
-      this.setState({
-        avatar: event.target.result
-      });
+      // console.log(event.target)
+      this.setState(prevState => ({
+        values: {
+          ...prevState.values,
+          avatar: event.target.result
+        }
+      }));
       // console.log(event.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
@@ -53,7 +81,7 @@ export default class App extends React.Component {
       this.state.values,
       this.state.isActiveStep
     );
-    // console.log(errorsForValidation);
+    console.log(errorsForValidation);
 
     if (Object.keys(errorsForValidation).length > 0) {
       this.setState(prevState => ({
@@ -74,46 +102,37 @@ export default class App extends React.Component {
   };
 
   render() {
-    console.log("App state, values", this.state.values);
+    // console.log("App state, values", this.state.values);
+
     return (
       <div className="form-container card shadow-sm">
         <form className="form card-body">
           {/* -------------------Nav block--------------------- */}
-          <ul className="nav nav-tabs mb-3 mt-2 border-bottom-0 justify-content-center">
-            <li className="nav-item mr-2">
-              <a className="nav-link rounded">Basic</a>
-            </li>
-            <li className="nav-item mr-2">
-              <a className="nav-link rounded">Contacts</a>
-            </li>
-            <li className="nav-item mr-2">
-              <a className="nav-link rounded">Avatar</a>
-            </li>
-            <li className="nav-item mr-2">
-              <a className="nav-link rounded">Finish</a>
-            </li>
-          </ul>
+          <Steps {...this.state.steps} />
           {/* --------------firstName, LastName, password,---------
           ------------------repeat password block---------------- */}
           {this.state.isActiveStep === 0 ? (
             <BasicStep
-              {...this.state}
-              onChangeValue={this.onChangeValue}
-              onChangeAgree={this.onChangeAgree}
+              values={this.state.values}
+              errors={this.state.errors}
+              handleChangeValue={this.handleChangeValue}
             />
           ) : null}
           {/* ---------------email, mobile,------------------------ 
           -------------------country, city block----------------- */}
           {this.state.isActiveStep === 1 ? (
             <ContactsStep
-              {...this.state}
-              onChangeValue={this.onChangeValue}
+              {...this.state.values}
+              handleChangeValue={this.handleChangeValue}
               getOptions={this.getOptions}
             />
           ) : null}
           {/* ----------------Avatar block---------------------- */}
           {this.state.isActiveStep === 2 ? (
-            <AvatarStep {...this.state} onChangeAvatar={this.onChangeAvatar} />
+            <AvatarStep
+              {...this.state.values}
+              handleChangeAvatar={this.handleChangeAvatar}
+            />
           ) : null}
           {/* -----------------Final block---------------------- */}
           {this.state.isActiveStep === 3 ? <FinalStep /> : null}

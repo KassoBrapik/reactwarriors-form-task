@@ -44,7 +44,7 @@ export default class ContactsStep extends Component {
             name="email"
             value={this.props.email}
             placeholder="Enter your email"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">{this.props.errors.email}</div>
@@ -59,7 +59,7 @@ export default class ContactsStep extends Component {
             name="mobile"
             value={this.props.mobile}
             placeholder="Enter number mobile"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           />
           {this.props.errors ? (
             <div className="invalid-feedback">{this.props.errors.mobile}</div>
@@ -71,7 +71,7 @@ export default class ContactsStep extends Component {
             className="form-control"
             id="country"
             name="country"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           >
             {countries.map(country => {
               return (
@@ -88,7 +88,7 @@ export default class ContactsStep extends Component {
             className="form-control"
             id="cities"
             name="cities"
-            onChange={this.props.onChangeValue}
+            onChange={this.props.handleChangeValue}
           >
             {this.getOptionsCities()}
           </select>
