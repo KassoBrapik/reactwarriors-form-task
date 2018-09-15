@@ -1,8 +1,8 @@
-const validate = values => {
+const validate = (values, isActiveStep) => {
   // console.log("this.state", values);
   const errorsData = {};
   //  ----------------- for step 1-----------
-  if (values.isActiveStep === 0) {
+  if (isActiveStep === 0) {
     if (values.firstName === "") {
       errorsData.firstName = "Не должен быть пустым";
     } else if (values.firstName.length < 3) {
@@ -35,7 +35,7 @@ const validate = values => {
   }
 
   //  ----------------- for step 2------------
-  if (values.isActiveStep === 1) {
+  if (isActiveStep === 1) {
     if (values.email === "") {
       errorsData.email = "Не должен быть пустым";
     } else if (
@@ -62,7 +62,7 @@ const validate = values => {
     return errorsData;
   }
 
-  if (values.isActiveStep === 2) {
+  if (isActiveStep === 2) {
     return errorsData;
   }
 };

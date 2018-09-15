@@ -8,24 +8,32 @@ import validate from "./Validate";
 
 export default class App extends React.Component {
   state = {
-    firstName: "",
-    lastName: "",
-    password: "",
-    repeatPassword: "",
-    gender: "",
-    email: "",
-    mobile: "",
-    country: 1,
-    cities: "",
-    avatar: null,
-    isActiveStep: 0
+    isActiveStep: 0,
+    values: {
+      firstName: "",
+      lastName: "",
+      password: "",
+      repeatPassword: "",
+      gender: "",
+      email: "",
+      mobile: "",
+      country: 1,
+      cities: "",
+      avatar: null
+    }
   };
 
   onChangeValue = event => {
-    // console.log(event.target.value);
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState(prevState => ({
+      values: {
+        ...prevState.values,
+        [name]: value
+      }
+    }));
+    // console.log("name", name);
+    // console.log("value", value);
   };
 
   onChangeAvatar = event => {
@@ -41,7 +49,10 @@ export default class App extends React.Component {
   };
 
   handleNextStep = () => {
-    const errorsForValidation = validate(this.state);
+    const errorsForValidation = validate(
+      this.state.values,
+      this.state.isActiveStep
+    );
     // console.log(errorsForValidation);
 
     if (Object.keys(errorsForValidation).length > 0) {
@@ -63,7 +74,7 @@ export default class App extends React.Component {
   };
 
   render() {
-    // console.log("App state", this.state);
+    console.log("App state, values", this.state.values);
     return (
       <div className="form-container card shadow-sm">
         <form className="form card-body">
