@@ -4,6 +4,7 @@ import BasicStep from "./Basic/BasicStep";
 import ContactsStep from "./Contacts/ContactsStep";
 import AvatarStep from "./Avatar/AvatarStep";
 import FinalStep from "./Final/FinalStep";
+import Pagination from "./Pagination/Pagination";
 import validate from "./Validate";
 // import classNames from "classnames";
 
@@ -44,7 +45,7 @@ export default class App extends React.Component {
       cities: "",
       avatar: null
     },
-    error: {}
+    errors: {}
   };
 
   handleChangeValue = event => {
@@ -81,7 +82,7 @@ export default class App extends React.Component {
       this.state.values,
       this.state.isActiveStep
     );
-    console.log(errorsForValidation);
+    // console.log(errorsForValidation);
 
     if (Object.keys(errorsForValidation).length > 0) {
       this.setState(prevState => ({
@@ -107,10 +108,7 @@ export default class App extends React.Component {
     return (
       <div className="form-container card shadow-sm">
         <form className="form card-body">
-          {/* -------------------Nav block--------------------- */}
-          <Steps {...this.state.steps} />
-          {/* --------------firstName, LastName, password,---------
-          ------------------repeat password block---------------- */}
+          <Steps steps={this.state.steps} />
           {this.state.isActiveStep === 0 ? (
             <BasicStep
               values={this.state.values}
@@ -118,8 +116,6 @@ export default class App extends React.Component {
               handleChangeValue={this.handleChangeValue}
             />
           ) : null}
-          {/* ---------------email, mobile,------------------------ 
-          -------------------country, city block----------------- */}
           {this.state.isActiveStep === 1 ? (
             <ContactsStep
               {...this.state.values}
@@ -127,34 +123,18 @@ export default class App extends React.Component {
               getOptions={this.getOptions}
             />
           ) : null}
-          {/* ----------------Avatar block---------------------- */}
           {this.state.isActiveStep === 2 ? (
             <AvatarStep
               {...this.state.values}
               handleChangeAvatar={this.handleChangeAvatar}
             />
           ) : null}
-          {/* -----------------Final block---------------------- */}
           {this.state.isActiveStep === 3 ? <FinalStep /> : null}
-          {/* buttons block */}
-          <div className="btn-group justify-content-center w-100">
-            <button
-              type="button"
-              className="btn btn-secondary mr-3"
-              disabled={this.state.isActiveStep === 0}
-              onClick={this.handlePrevStep}
-            >
-              Prev
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={this.handleNextStep}
-              disabled={this.state.isActiveStep === 3}
-            >
-              Next
-            </button>
-          </div>
+          <Pagination
+            isActiveStep={this.isActiveStep}
+            handleNextStep={this.handleNextStep}
+            handlePrevStep={this.handlePrevStep}
+          />
         </form>
       </div>
     );

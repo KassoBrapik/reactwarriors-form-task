@@ -1,7 +1,7 @@
 const validate = (values, isActiveStep) => {
   // console.log("this.state", values);
   const errorsData = {};
-  console.log(this.props);
+  // console.log(this.props);
 
   switch (isActiveStep) {
     case 0:

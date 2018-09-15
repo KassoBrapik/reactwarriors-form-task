@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class BasicStep extends Component {
   render() {
-    console.log("properties into BasicStep", this.props);
+    // console.log("properties into BasicStep", this.props);
     return (
       <div>
         <div className="form-group">
