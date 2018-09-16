@@ -3,7 +3,7 @@ import DefaultAvatar from "../../images/default-avatar.png";
 
 export default class AvatarStep extends Component {
   render() {
-    // console.log(this.styleImg());
+    console.log("jjbja");
     return (
       <div>
         {/* <img
